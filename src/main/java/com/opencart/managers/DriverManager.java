@@ -17,6 +17,7 @@ public class DriverManager {
             case "CHROME":
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("ignore-certificate-errors");
+                options.addArguments("start-maximized");
                 driver = new ChromeDriver(options);
                 System.out.println("The Chrome driver is initiated.");
                 break;
@@ -48,5 +49,11 @@ public class DriverManager {
 
     public WebDriver getDriver() {
         return driver;
+    }
+
+    public void tearDown(){
+        driver.close();
+        driver.quit();
+        driver = null;
     }
 }
