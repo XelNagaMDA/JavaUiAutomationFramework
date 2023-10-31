@@ -20,6 +20,14 @@ public class LoginPage extends Page{
         passwordInputField.sendKeys(password);
     }
 
+    public void inputDataInEmailField(String email) {
+        emailInputField.sendKeys(email);
+    }
+
+    public void inputDataInPasswordField(String password) {
+        passwordInputField.sendKeys(password);
+    }
+
     public void clickTheLoginButton() {
         loginButton.click();
     }
