@@ -9,9 +9,10 @@ public abstract class Page {
     public Page(WebDriver driver) {
         PageFactory.initElements(driver, this);
     }
-    @FindBy (xpath = "//i[@class='fa-solid fa-user']")
+
+    @FindBy(xpath = "//i[@class='fa-solid fa-user']")
     protected WebElement myAccountIcon;
-    @FindBy (xpath = "//a[normalize-space()='Register']")
+    @FindBy(xpath = "//a[normalize-space()='Register']")
     protected WebElement registerButton;
     @FindBy(xpath = "//a[normalize-space()='Login']")
     protected WebElement loginButton;
@@ -23,7 +24,8 @@ public abstract class Page {
         myAccountIcon.click();
         registerButton.click();
     }
-    public  void navigateToLoginPageFromHeader() {
+
+    public void navigateToLoginPageFromHeader() {
         myAccountIcon.click();
         loginButton.click();
     }
@@ -32,6 +34,15 @@ public abstract class Page {
         myAccountIcon.click();
         logoutButton.click();
 
+    }
+
+    // The two methods from below duplicate the method from above, needed to create them for separate steps in cucumber
+    public void navigateToMyAccountButtonFromHeader() {
+        myAccountIcon.click();
+    }
+
+    public void navigateToLogOutOptionFromHeader() {
+        logoutButton.click();
     }
 
 
