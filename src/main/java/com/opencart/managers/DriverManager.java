@@ -58,4 +58,19 @@ public class DriverManager {
         instance = null;
         driver = null;
     }
+
+    public void deleteCookies() {
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        driver.manage().deleteAllCookies();
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }

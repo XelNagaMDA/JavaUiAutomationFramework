@@ -6,3 +6,13 @@ Feature: Login Flow Test Suite
     And "zvgdcge85s1" data is entered into the password field
     And the Login button is clicked
     Then "/index.php?route=account/account" is accessed
+
+  @run
+  Scenario: Login with invalid credentials displays an error
+    Given "/index.php?route=account/login&language=en-gb" is accessed
+    When the Login form is populated with the following details:
+      | dfsdfsdfs@gmail.com |
+      | crtgrtgcrtgrc       |
+    And the Login button is clicked
+    Then the following list of error messages is displayed:
+      | No match for E-Mail Address and/or Password. |

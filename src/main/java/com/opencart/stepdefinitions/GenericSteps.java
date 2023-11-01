@@ -7,7 +7,10 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+
+import java.util.List;
 
 public class GenericSteps {
 
@@ -40,5 +43,15 @@ public class GenericSteps {
         Thread.sleep(1000);
         homePage.navigateToLogOutOptionFromHeader();
         Thread.sleep(1000);
+    }
+
+    @Then("the following list of error messages is displayed:")
+    public void theFollowingListOfErrorMessagesIsDisplayed(List<String> errorMessagesList) throws InterruptedException {
+        Thread.sleep(1000);
+        errorMessagesList.forEach(errorMessage -> {
+            boolean errorMessageIsDisplayed = driver.findElement(By.xpath("//*[contains(text(),'" + errorMessage + "')]")).isDisplayed();
+            Assertions.assertTrue(errorMessageIsDisplayed, "The error message: " + errorMessage + " is displayed");
+        });
+
     }
 }
