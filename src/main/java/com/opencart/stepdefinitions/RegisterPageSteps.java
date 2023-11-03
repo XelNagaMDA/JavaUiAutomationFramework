@@ -32,12 +32,12 @@ public class RegisterPageSteps {
 
     }
 
-    @And("Continue button is clicked")
-    public void continueButtonIsClicked() throws InterruptedException {
-        Thread.sleep(1000);
-        registerPage.clickTheContinueButton();
-        System.out.println("The Continue button was clicked.");
-    }
+//    @And("Continue button is clicked")
+//    public void continueButtonIsClicked() throws InterruptedException {
+//        Thread.sleep(1000);
+//        registerPage.clickTheContinueButton();
+//        System.out.println("The Continue button was clicked.");
+//    }
 
     @When("the Register form is populated with the following data:")
     public void theRegisterFormIsPopulatedWithTheFollowingData(Map<String, String> formDataMap) {

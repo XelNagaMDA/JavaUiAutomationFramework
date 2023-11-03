@@ -1,5 +1,7 @@
 package com.opencart.stepdefinitions;
 
+import com.opencart.managers.ConfigReaderManager;
+import com.opencart.managers.DataSubstituteManager;
 import com.opencart.managers.DriverManager;
 import com.opencart.pageobjects.HomePage;
 import io.cucumber.java.en.And;
@@ -9,8 +11,12 @@ import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Map;
 
 public class GenericSteps {
 
@@ -29,7 +35,7 @@ public class GenericSteps {
 
     @Given("{string} is accessed")
     public void isAccessed(String endpointValue) {
-        driver.get("https://andreisecuqa.host" + endpointValue);
+        driver.get(ConfigReaderManager.getPropertyValue("url") + endpointValue);
     }
 
     @When("User navigates to MyAccount button from Header menu")
@@ -53,5 +59,39 @@ public class GenericSteps {
             Assertions.assertTrue(errorMessageIsDisplayed, "The error message: " + errorMessage + " is displayed");
         });
 
+    }
+
+    @And("the {string} from {string} is clicked")
+    public void theElementFromPageNameIsClicked(String elementName, String pageName) {
+        try {
+            Class classInstance = Class.forName("com.opencart.pageobjects." + pageName);
+            Field classField = classInstance.getDeclaredField(elementName);
+            classField.setAccessible(true);
+            WebElement elementToBeClicked = (WebElement) classField.get(classInstance.getConstructor(WebDriver.class).newInstance(driver));
+            // maybe scroll?
+            elementToBeClicked.click();
+            System.out.println("The element: " + elementName + " is clicked.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @When("the following form from {string} is populated as follows:")
+    public void theFollowingFormFromPageNameIsPopulatedAsFollows(String pageName, Map<String, String> fieldAndValueMap) {
+        fieldAndValueMap.forEach((fieldName, fieldValue) -> {
+            try {
+                Class classInstance = Class.forName("com.opencart.pageobjects." + pageName);
+                Field classField = classInstance.getDeclaredField(fieldName);
+                classField.setAccessible(true);
+                WebElement inputElement = (WebElement) classField.get(classInstance.getConstructor(WebDriver.class).newInstance(driver));
+                fieldValue = DataSubstituteManager.substituteString(fieldValue);
+                inputElement.sendKeys(fieldValue);
+                System.out.println("The field [ " + fieldName + " ] is populated with [ " + fieldValue + " ]");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+
+        });
     }
 }

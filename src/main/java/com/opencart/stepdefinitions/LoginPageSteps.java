@@ -25,12 +25,12 @@ public class LoginPageSteps {
 
     }
 
-    @And("the Login button is clicked")
-    public void theLoginButtonIsClicked() throws InterruptedException {
-        Thread.sleep(1000);
-        loginPage.clickTheLoginButton();
-
-    }
+//   @And("the Login button is clicked")
+//   public void theLoginButtonIsClicked() throws InterruptedException {
+//       Thread.sleep(1000);
+//        loginPage.clickTheLoginButton();
+//
+//    }
 
     @When("the Login form is populated with the following details:")
     public void theLoginFormIsPopulatedWithTheFollowingDetails(List<String> loginCredentials) {
