@@ -5,21 +5,26 @@ import com.opencart.managers.DriverManager;
 import com.opencart.pageobjects.HomePage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
 public class HomePageSteps {
+    private static final Logger logger = LogManager.getLogger(HomePageSteps.class);
 
     WebDriver driver = DriverManager.getInstance().getDriver();
     HomePage homePage = new HomePage(driver);
+
     @Given("Home Page is displayed")
     public void homePageIsDisplayed() {
         driver.get(ConfigReaderManager.getPropertyValue("url"));
-        System.out.println("The driver accessed the Home Page.");
+        logger.log(Level.INFO, "The driver accessed the Home Page.");
     }
 
     @When("register link from Header menu is clicked")
     public void registerLinkFromHeaderMenuIsClicked() {
         homePage.navigateToRegisterPageFromHeader();
-        System.out.println("The Register link has been accessed from the Header menu.");
+        logger.log(Level.INFO, "The Register link has been accessed from the Header menu.");
     }
 }

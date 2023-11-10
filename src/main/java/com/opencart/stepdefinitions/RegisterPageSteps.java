@@ -5,11 +5,15 @@ import com.opencart.managers.RandomDataGeneratorManager;
 import com.opencart.pageobjects.RegisterPage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
 import java.util.Map;
 
 public class RegisterPageSteps {
+    private static final Logger logger = LogManager.getLogger(RegisterPageSteps.class);
 
     WebDriver driver = DriverManager.getInstance().getDriver();
     RegisterPage registerPage = new RegisterPage(driver);
@@ -20,16 +24,16 @@ public class RegisterPageSteps {
 
         // Generating and printing data for the field
         String email = RandomDataGeneratorManager.generateRandomEmail();
-        System.out.println(email);
+        logger.log(Level.INFO, email);
 
         // Generating and printing data for the field
         String password = RandomDataGeneratorManager.generateRandomPassword();
-        System.out.println(password);
+        logger.log(Level.INFO, password);
+
 
         registerPage.completeTheRegisterForm(RandomDataGeneratorManager.generateRandomFirstName(),
                 RandomDataGeneratorManager.generateRandomLastName(), email, password, true);
-        System.out.println("The Register form is populated with random data.");
-
+        logger.log(Level.INFO, "The Register form is populated with random data.");
     }
 
 //    @And("Continue button is clicked")
