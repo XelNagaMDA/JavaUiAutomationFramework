@@ -1,5 +1,6 @@
 package com.opencart.stepdefinitions;
 
+import com.opencart.context.ScenarioContext;
 import com.opencart.managers.DriverManager;
 import io.cucumber.java.After;
 import io.cucumber.java.AfterAll;
@@ -26,6 +27,7 @@ public class Hooks {
     @After
     public void implementTheseStepsAfterEachTestCase() {
         DriverManager.getInstance().deleteCookies();
+        ScenarioContext.getInstance().cleanUpTheContextStorage();
         logger.log(Level.INFO, "These actions happen after each test case.");
     }
 

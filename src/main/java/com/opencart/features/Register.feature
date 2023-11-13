@@ -1,4 +1,4 @@
-@register
+@register1
 Feature: Register Flow Test Suite
 
   Background:
